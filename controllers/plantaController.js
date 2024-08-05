@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 exports.getAll = async (req, res) => {
-  console.log("Peticion");
   
   try {
     const plantas = await Planta.find();
@@ -15,9 +14,11 @@ exports.getAll = async (req, res) => {
 };
 
 exports.post = async (req, res) => {
-  const { country, name_plant } = req.body;
+  const { pais, nombre_de_planta } = req.body;
+  console.log(req.body);
+  
   try {
-    const newPlanta = new Planta({ country, name_plant });
+    const newPlanta = new Planta({ pais, nombre_de_planta });
     await newPlanta.save();
     res.json(newPlanta);
   } catch (err) {
@@ -29,15 +30,15 @@ exports.post = async (req, res) => {
 // Actualizar una planta existente
 exports.update = async (req, res) => {
   const { id } = req.params;
-  const { country, name_plant } = req.body;
+  const { pais, nombre_de_planta } = req.body;
   try {
     let planta = await Planta.findById(id);
     if (!planta) {
       return res.status(404).json({ message: 'Planta no encontrada' });
     }
 
-    planta.country = country || planta.country;
-    planta.name_plant = name_plant || planta.name_plant;
+    planta.pais = pais || planta.pais;
+    planta.nombre_de_planta = nombre_de_planta || planta.nombre_de_planta;
 
     await planta.save();
     res.json(planta);

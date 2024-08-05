@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
-  country: {
+  pais: {
     type: String,
     required: true,
   },
-  name_plant:{
+  nombre_de_planta:{
     type: String,
     required: true,
   }
